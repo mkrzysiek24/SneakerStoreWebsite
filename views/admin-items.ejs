@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sneakers planet</title>
+    <link rel="stylesheet" href="/css/admin-items.css">
+</head>
+<body>
+    <div class="free-shipping">
+        Darmowa dostawa przy zamówieniach powyżej 299 PLN!
+    </div>
+    <nav>
+        <a href="/">
+            <img src="/cat-animal-icon.svg" alt="Home">
+        </a>
+        <a href="/">Home</a>
+        <a href="/obuwie">Obuwie</a>
+        <a href="/ubrania">Ubrania</a>
+        <a href="/akcesoria">Akcesoria</a>
+        <div class="right-icons">
+            <a href="/search">
+                <img src="/search-icon.svg" alt="Search">
+            </a>
+            <a href="/account">
+                <img src="/account.svg" alt="Account">
+            </a>
+            <a href="/cart">
+                <img src="/shopping-cart.svg" alt="Shopping Cart">
+            </a>
+        </div>
+    </nav>
+    <div class="dashboard">
+        <div class="menu">
+            <ul>
+                <li><a href="/admin">Kokpit</a></li>
+                <li><a href="/admin/orders">Zamówienia</a></li>
+                <li><a href="/admin/users">Użytkownicy</a></li>
+                <li><a href="/admin/sneakers">Obuwie</a></li>
+                <li><a href="/admin/ubrania">Ubrania</a></li>
+                <li><a href="/admin/akcesoria">Akcesoria</a></li>
+                <li><a href="/logout">Wyloguj się</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <div class="header-container">
+                <a href="/admin/<%= category.toLowerCase() %>/add">
+                    <img src="/add-sneaker.svg" alt="Add New <%= category.toLowerCase() %>" style="width: 30px; height: 30px; margin-right: 10px;">
+                </a>
+                <h1><%= category %></h1>
+            </div>
+            <div class="sneakers-list">
+                <% if (items && items.length > 0) { %>
+                    <% items.forEach(item => { %>
+                        <div class="sneaker-item">
+                            <img src="<%= item.imageURL %>" alt="<%= item.name %>">
+                            <h2><%= item.name %></h2>
+                            <p><strong>Marka:</strong> <%= item.brand %></p>
+                            <p><strong>Kategoria:</strong> <%= item.category %></p>
+                            <p><strong>Cena:</strong> <%= item.price %> PLN</p>
+                            <p><strong>Rozmiary:</strong> 
+                                <% item.sizes.forEach(size => { %>
+                                    <span style="color: <%= size.quantity === 0 ? 'black' : (size.quantity > 3 ? 'green' : 'red') %>;">
+                                        <%= size.size %>
+                                    </span>
+                                <% }) %>
+                            </p>                            
+                            <p><strong>Ilość dostępnych sztuk:</strong> <%= item.sizes.reduce((total, size) => total + size.quantity, 0) %></p>
+                            <div class="button-container">
+                                <a href="/admin/<%= category.toLowerCase() %>/edit/<%= item._id %>" class="edit-button">Edytuj</a>
+                                <form method="post" action="/admin/<%= category.toLowerCase() %>/delete/<%= item._id %>" onsubmit="return confirm('Czy na pewno chcesz usunąć ten przedmiot?');">
+                                    <button type="submit" onclick="return confirm('Czy na pewno chcesz usunąć <%= item.name %>?')" class="delete-button">Usuń</button>
+                                </form>
+                            </div>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <p>Nie ma dostępnych produktów z kategorii: <%=category%></p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

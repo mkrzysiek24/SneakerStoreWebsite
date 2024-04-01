@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sneakers planet</title>
+    <link rel="stylesheet" href="/css/admin-items.css">
+</head>
+<body>
+    <div class="free-shipping">
+        Darmowa dostawa przy zamówieniach powyżej 299 PLN!
+    </div>
+    <nav>
+        <a href="/">
+            <img src="/cat-animal-icon.svg" alt="Home">
+        </a>
+        <a href="/">Home</a>
+        <a href="/obuwie">Obuwie</a>
+        <a href="/ubrania">Ubrania</a>
+        <a href="/akcesoria">Akcesoria</a>
+        <div class="right-icons">
+            <a href="/search">
+                <img src="/search-icon.svg" alt="Search">
+            </a>
+            <a href="/account">
+                <img src="/account.svg" alt="Account">
+            </a>
+            <a href="/cart">
+                <img src="/shopping-cart.svg" alt="Shopping Cart">
+            </a>
+        </div>
+    </nav>
+    <div class="dashboard">
+        <div class="menu">
+            <ul>
+                <% if (acc == "admin") { %>
+                    <li><a href="/admin">Kokpit</a></li>
+                    <li><a href="/admin/orders">Zamówienia</a></li>
+                    <li><a href="/admin/users">Użytkownicy</a></li>
+                    <li><a href="/admin/sneakers">Obuwie</a></li>
+                    <li><a href="/admin/ubrania">Ubrania</a></li>
+                    <li><a href="/admin/akcesoria">Akcesoria</a></li>
+                    <li><a href="/logout">Wyloguj się</a></li>
+                <% } else { %>
+                    <li><a href="/account">Kokpit</a></li>
+                    <li><a href="/account/orders">Zamówienia</a></li>
+                    <li><a href="/account/adress">Adres</a></li>
+                    <li><a href="/account/details">Szczegóły konta</a></li>
+                    <li><a href="/logout">Wyloguj się</a></li>
+                <% } %>
+            </ul>
+        </div>
+        <div class="content">
+            <div class="header-container">
+                <h1>Zamówienia</h1>
+            </div>
+            <div class="sneakers-list">
+                <% if (orders && orders.length > 0) { %>
+                    <% orders.forEach(order => { %>
+                        <div class="sneaker-item">
+                            <h2 class="order-id">Zamówienie nr <%= order._id %></h2>
+                            <p><strong>Data zamówienia:</strong> <%= order.orderDate %></p>
+                            <p><strong>Użytkownik:</strong> <%= order.userId.name %> <%= order.userId.surname %></p>
+                            <p><strong>Adres:</strong> <%= order.userId.city %> <%= order.userId.postal %> <%= order.userId.adress %></p>
+                            <p><strong>Łączna wartość:</strong> <%= order.totalValue %> PLN</p>
+                            <div class="button-container">
+                                <a href="/<%=acc%>/orders/details/<%= order._id %>" class="edit-button">Szczegóły</a>
+                                <form method="post" action="/<%=acc%>/orders/delete/<%= order._id %>" onsubmit="return confirm('Czy na pewno chcesz usunąć to zamówienie?');">
+                                    <button type="submit" onclick="return confirm('Czy na pewno chcesz usunąć to zamówienie?')" class="delete-button">Usuń</button>
+                                </form>
+                            </div>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <p>Brak dostępnych zamówień</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sneakers planet</title>
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+    <div class="free-shipping">
+        Darmowa dostawa przy zamówieniach powyżej 299 PLN!
+    </div>
+    <nav>
+        <a href="/">
+            <img src="/cat-animal-icon.svg" alt="Home">
+        </a>
+        <a href="/">Home</a>
+        <a href="/obuwie">Obuwie</a>
+        <a href="/ubrania">Ubrania</a>
+        <a href="/akcesoria">Akcesoria</a>
+        <a href="/kontakt">Kontakt</a>
+        <div class="right-icons">
+            <a href="/search">
+                <img src="search-icon.svg" alt="Search">
+            </a>
+            <a href="/account">
+                <img src="account.svg" alt="Account">
+            </a>
+            <a href="/cart">
+                <img src="shopping-cart.svg" alt="Shopping Cart">
+            </a>
+        </div>
+    </nav>
+    <% if (loggedIn) { %>
+        <div class="logged-in-bar">
+           Zalogowano!
+        </div>
+    <% } %>
+
+    <div class="slider-container">
+        <div class="image-slider">
+            <% for (let i = 1; i <= 4; i++) { %>
+                <img src=<%= `image-${i}.png` %> alt=<%= `Image ${i}` %>>
+            <% } %>
+        </div>
+
+        <div class="dot-container">
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentIndex = 0;
+        const images = document.querySelectorAll('.image-slider img');
+        const dotContainer = document.querySelector('.dot-container');
+    
+        function showImage(index) {
+            const translateValue = -index * 100 + '%';
+            document.querySelector('.image-slider').style.transform = 'translateX(' + translateValue + ')';
+    
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+    
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            showImage(currentIndex);
+        }
+    
+        setInterval(nextImage, 10000);
+        showImage(currentIndex);
+    
+        for (let i = 0; i < images.length -1 ; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            dotContainer.appendChild(dot);
+    
+            dot.addEventListener('click', () => {
+                currentIndex = i;
+                showImage(currentIndex);
+            });
+        }
+    </script>
+</body>
+</html>

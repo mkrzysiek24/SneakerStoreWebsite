@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sneakers planet</title>
+    <link rel="stylesheet" href="/css/users.css">
+</head>
+<body>
+    <div class="free-shipping">
+        Darmowa dostawa przy zamówieniach powyżej 299 PLN!
+    </div>
+    <nav>
+        <a href="/">
+            <img src="/cat-animal-icon.svg" alt="Home">
+        </a>
+        <a href="/">Home</a>
+        <a href="/obuwie">Obuwie</a>
+        <a href="/ubrania">Ubrania</a>
+        <a href="/akcesoria">Akcesoria</a>
+        <div class="right-icons">
+            <a href="/search">
+                <img src="/search-icon.svg" alt="Search">
+            </a>
+            <a href="/account">
+                <img src="/account.svg" alt="Account">
+            </a>
+            <a href="/cart">
+                <img src="/shopping-cart.svg" alt="Shopping Cart">
+            </a>
+        </div>
+    </nav>
+    <div class="dashboard">
+        <div class="menu">
+            <ul>
+                <li><a href="/admin">Kokpit</a></li>
+                <li><a href="/admin/orders">Zamówienia</a></li>
+                <li><a href="/admin/users">Użytkownicy</a></li>
+                <li><a href="/admin/sneakers">Obuwie</a></li>
+                <li><a href="/admin/ubrania">Ubrania</a></li>
+                <li><a href="/admin/akcesoria">Akcesoria</a></li>
+                <li><a href="/logout">Wyloguj się</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <h1>Użytkownicy</h1>
+            <div class="user-list">
+                <% users.forEach(user => { %>
+                    <div class="user-item">
+                        <p><strong>Imię:</strong> <%= user.name %></p>
+                        <p><strong>Nazwisko:</strong> <%= user.surname %></p>
+                        <p><strong>Email:</strong> <%= user.mail %></p>
+                        <p><strong>Hasło: </strong> **********</p>
+                        <p><strong>Typ:</strong> <%= user.account %></p>
+                        <form action="/admin/users/<%= user._id %>/delete" method="post">
+                            <button type="submit" onclick="return confirm('Czy na pewno chcesz usunąć konto?')">Usuń konto</button>
+                        </form>
+                        <form action="/admin/users/<%= user._id %>/change-password" method="get">
+                            <button type="submit">Zmień hasło</button>
+                        </form>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sneakers planet</title>
+    <link rel="stylesheet" href="/css/cart.css">
+</head>
+<body>
+    <div class="free-shipping">
+        Darmowa dostawa przy zamówieniach powyżej 299 PLN!
+    </div>
+    <nav>
+        <a href="/">
+            <img src="/cat-animal-icon.svg" alt="Home">
+        </a>
+        <a href="/">Home</a>
+        <a href="/obuwie">Obuwie</a>
+        <a href="/ubrania">Ubrania</a>
+        <a href="/akcesoria">Akcesoria</a>
+        <div class="right-icons">
+            <a href="/search">
+                <img src="/search-icon.svg" alt="Search">
+            </a>
+            <a href="/account">
+                <img src="/account.svg" alt="Account">
+            </a>
+            <a href="/cart">
+                <img src="/shopping-cart.svg" alt="Shopping Cart">
+            </a>
+        </div>
+    </nav>
+    <div class="dashboard">
+        <div class="content">
+            <h1>Twoje zamówienie zostało potwierdzone!</h1>
+                <table class="cart-table">
+                    <thead>
+                        <tr>
+                            <th>Zdjęcie</th>
+                            <th>Produkt</th>
+                            <th>Rozmiar</th>
+                            <th>Cena</th>
+                            <th>Ilość dostępnych sztuk</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% cart.forEach(item => { %>
+                            <tr>
+                                <td class="cart-item-image">
+                                    <img src="<%= item.imageURL %>" alt="<%= item.name %>">
+                                </td>
+                                <td class="cart-item-name">
+                                    <p><strong><%= item.name %></strong></p>
+                                </td>
+                                <td class="cart-item-size">
+                                    <p>Rozmiar: <%= item.size %></p>
+                                </td>
+                                <td class="cart-item-price">
+                                    <p>Cena: <%= item.price %> PLN</p>
+                                </td>
+                                <td class="cart-item-stock">
+                                    <p>Ilość: <%= item.quantity %> szt.</p>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+                <div class="total">
+                    <p><strong>Łączna cena:</strong> <%= totalValue %> PLN</p>
+                </div>
+                <div class="user-address">
+                    <h3>Twój adres</h3>
+                    <p><strong>Imię i nazwisko:</strong> <%= user.name %> <%= user.surname %></p>
+                    <p><strong>Adres:</strong> <%= user.adress %>, <%= user.postal %> <%= user.city %></p>
+                </div>
+        </div>
+    </div>
+</body>
+</html>

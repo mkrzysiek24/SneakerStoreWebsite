@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sneakers planet</title>
+    <link rel="stylesheet" href="/css/items.css">
+</head>
+<body>
+    <div class="free-shipping">
+        Darmowa dostawa przy zamówieniach powyżej 299 PLN!
+    </div>
+    <nav>
+        <a href="/">
+            <img src="cat-animal-icon.svg" alt="Home">
+        </a>
+        <a href="/">Home</a>
+        <a href="/obuwie">Obuwie</a>
+        <a href="/ubrania">Ubrania</a>
+        <a href="/akcesoria">Akcesoria</a>
+        <div class="right-icons">
+            <a href="/search">
+                <img src="/search-icon.svg" alt="Search">
+            </a>
+            <a href="/account">
+                <img src="account.svg" alt="Account">
+            </a>
+            <a href="/cart">
+                <img src="shopping-cart.svg" alt="Shopping Cart">
+            </a>
+        </div>
+    </nav>
+    
+    <div class="sub-menu-bar">
+        <p id="categoryName"><%=category%></p>
+    </div>
+    
+    <div class="product-details">
+        <% for (let i = 0; i < items.length; i++) { %>
+            <div class="sneaker-item">
+                <a href="/item/<%= items[i].slug %>">
+                    <img class="sneaker-image" src="<%= items[i].imageURL %>" alt="Product Image">
+                    <div class="sneaker-info">
+                        <h2 class="sneaker-name"><%= items[i].name %></h2>
+                        <p class="sneaker-price">Price: <%= items[i].price %> PLN</p>
+                    </div>
+                </a>
+            </div>
+        <% } %>
+    </div>
+</body>
+</html>

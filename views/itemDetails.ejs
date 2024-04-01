@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sneakers planet</title>
+    <link rel="stylesheet" href="/css/itemDetails.css">
+</head>
+<body>
+    <div class="free-shipping">
+        Darmowa dostawa przy zamówieniach powyżej 299 PLN!
+    </div>
+    <nav>
+        <a href="/">
+            <img src="/cat-animal-icon.svg" alt="Home">
+        </a>
+        <a href="/">Home</a>
+        <a href="/obuwie">Obuwie</a>
+        <a href="/ubrania">Ubrania</a>
+        <a href="/akcesoria">Akcesoria</a>
+        <div class="right-icons">
+            <a href="/search">
+                <img src="/search-icon.svg" alt="Search">
+            </a>
+            <a href="/account">
+                <img src="/account.svg" alt="Account">
+            </a>
+            <a href="/cart">
+                <img src="/shopping-cart.svg" alt="Shopping Cart">
+            </a>
+        </div>
+    </nav>
+    <div class="dashboard">
+        <div class="content">
+            <div class="sneaker-details">
+                <img src="<%= sneaker.imageURL %>" alt="<%= sneaker.name %>">
+                <div class="info-container">
+                    <h1><%= sneaker.name %></h1>
+                    <p><strong>Marka:</strong> <%= sneaker.brand %></p>
+                    <p><strong>Kategoria:</strong> <%= sneaker.category %></p>
+                    <p><strong>Cena:</strong> <%= sneaker.price %> PLN</p>
+                    <p><strong>Płeć:</strong> <%= sneaker.gender %></p>
+                    <form action="/item/add-to-cart" method="post">
+                        <input type="hidden" name="sneakerId" value="<%= sneaker._id %>">
+                        <input type="hidden" name="slug" value="<%= sneaker.slug %>">
+                        <label for="sizes"><strong>Rozmiar:</strong></label>
+                        <select id="sizes" name="size" required>
+                            <% sneaker.sizes.forEach(size => { %>
+                                <option value="<%= size.size %>"><%= size.size %></option>
+                            <% }) %>
+                        </select>
+                        <button type="submit" class="add-to-cart-button">Dodaj do koszyka</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
